@@ -1,6 +1,7 @@
 # IntelliSecureBank 🏦🔐
 
-A **secure, intelligent banking system** that integrates **OCR KYC, Face Verification, Encrypted Storage, and Anomaly Detection**.  Built for the **Samsung PRISM GenAI Hackathon 2025**, it ensures **robust security, user privacy, and real-time monitoring**. **#SamsungPRISMGenAIHackathon2025**
+A **secure, intelligent banking system** that integrates **OCR KYC, Face Verification, Encrypted Storage, and Anomaly Detection**.  Built for the **Samsung PRISM GenAI Hackathon 2025**, it ensures **robust security, user privacy, and real-time monitoring**.
+**#SamsungPRISMGenAIHackathon2025**
 ---
 ## Submissions:
 https://drive.google.com/file/d/1mnNFxrsImLMr9FQHi0EsuNqjoDOuNuxk/view?usp=sharing
