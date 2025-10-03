@@ -4,76 +4,57 @@ A **secure, intelligent banking system** that integrates **OCR KYC, Face Verific
 Built for the **Samsung PRISM GenAI Hackathon 2025**, it ensures **robust security, user privacy, and real-time monitoring**.
 
 ---
+## Submissions:
 
-## ✨ Features
+
+---
+
+## ✨ Key Features
 
 - **🔑 Multi-Factor Admin Authentication**
-  - Passwords hashed with **bcrypt**
-  - **TOTP (Google Authenticator/Authy)** login
+  - Passwords stored with **bcrypt hashing**
+  - **TOTP (Google Authenticator/Authy)** support
   - OTP delivery via **Twilio SMS** or **Email**
 
 - **🧾 KYC Verification**
-  - OCR (Tesseract) to extract details from Aadhaar/ID
-  - Fuzzy matching for name validation
+  - OCR (Tesseract) to extract name & details from Aadhaar/ID
+  - Automated text matching for name validation
 
 - **🖼 Face Verification**
-  - Passport photo upload + **OpenCV DNN** live webcam match
+  - Passport photo upload + **OpenCV DNN** live webcam matching
   - Snapshot storage for audit/compliance
 
 - **💳 Banking Operations**
   - Create, modify, delete accounts
   - Deposit/Withdraw with validation
   - Balance enquiry & search by account/name
-  - Transaction history logging (`transactions.csv`)
+  - Transaction history logging in `transactions.csv`
 
 - **🚨 Anomaly Detection**
-  - Train **IsolationForest model** on transactions
-  - Flag suspicious anomalies
-  - Save flagged results to `transactions_flagged.csv`
+  - Train **IsolationForest model** on transaction history
+  - Flag suspicious transactions (amount/time anomalies)
+  - Save flagged results in `transactions_flagged.csv`
 
-- **📊 Data Export**
-  - Encrypted account storage (`accounts.csv`)
-  - Excel export with password-protection
+- **📊 Data Export & Security**
+  - Encrypted account storage (`accounts.csv` with AES)
+  - **Excel export** with password-protection
+  - Audit logging for sensitive operations
+
+- **⚙️ Extras**
+  - Role-based admin management (Admin, Teller, Auditor)
+  - Tamper-evident audit log (hash chain)
+  - CLI menu-driven interface (extendable to GUI)
 
 ---
 
-## 🛠 Tech Stack
+## 🛠️ Tech Stack
 
 - **Language**: Python 3.10+  
-- **Core Libraries**:  
-  - `opencv-python`, `pytesseract`, `Pillow`, `numpy`  
-  - `pandas`, `scikit-learn`  
-  - `bcrypt`, `pyotp`, `python-dotenv`  
-  - `yagmail`, `twilio`  
-  - `xlsxwriter`, `win32com.client`  
-- **Database**: SQLite (`admins.db`)  
-- **Encryption**: AES/Fernet (`crypto_utils.py`)
+- **Core Libraries**: OpenCV, Tesseract OCR, bcrypt, pyotp, pandas, scikit-learn, xlsxwriter, yagmail, twilio  
+- **Database**: SQLite (`admins.db`, accounts/transactions)  
+- **Encryption**: AES/Fernet (custom `crypto_utils.py`)
 
 ---
-
-## 📂 Project Structure
-
-
-{repo_dir}/
-├─ intell.py
-├─ db.py
-├─ crypto_utils.py
-├─ admins.db
-├─ accounts.csv
-├─ transactions.csv
-├─ requirements.txt
-├─ README.md
-├─ TeamName.pdf (or TeamName.md)
-├─ models/
-│  ├─ deploy.prototxt
-│  ├─ res10_300x300_ssd_iter_140000.caffemodel
-│  └─ nn4.small2.v1.t7
-├─ aadhaarcards/
-├─ passport_size_photos/
-├─ admin_images/
-├─ backups/
-└─ logs/
-
 
 ## 🛠 Setup
 ```bash
@@ -82,4 +63,34 @@ python -m venv venv
 pip install -r requirements.txt
 python db.py create-admin admin StrongPass!123 --role Admin
 python intell.py
+
+```
+## 📂 Project Structure
+
+```text
+INTELLISECUREBANK/
+│── intell.py                 # Main CLI entry point
+│── db.py                     # Admins DB (bcrypt + TOTP)
+│── crypto_utils.py           # AES/Fernet utilities
+│── accounts.csv              # Encrypted account storage
+│── transactions.csv          # Transaction log
+│── admins.db                 # Admin auth DB (SQLite)
+│── TeamName.pdf              # Supplementary file
+│── requirements.txt          # Python dependencies
+│── README.md                 # This file
+│
+├── models/                   # Face recognition models
+│   ├── deploy.prototxt
+│   ├── res10_300x300_ssd_iter_140000.caffemodel
+│   └── nn4.small2.v1.t7
+│
+├── aadhaarcards/             # Stored KYC documents
+├── passport_size_photos/     # Stored passport photos
+├── admin_images/             # Snapshots after verification
+├── backups/                  # Auto backups (encrypted zips)
+└── logs/                     # Security & transaction logs
+
+
+
+
 
